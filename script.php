@@ -60,7 +60,7 @@ class CodeInGameController
 		$this->TMap = array();
 		// Définition des règles
 		$this->TRules['troopSent'] = 1;
-		$this->TRules['multiplier_defprod'] = 10;
+		$this->TRules['multiplier_defprod'] = 15;
 		$this->TRules['multiplier_defcyborgs'] = 5;
 		$this->TRules['multiplier_distance'] = 5;
 		$this->TRules['min_cyborgs'] = 5;
@@ -185,9 +185,10 @@ class CodeInGameController
 
 	function getDestFor($typeEntity, $source, $nbcyborgs, $factory) {
 		$TRes = array();
-		$troups_on  = $this->calcTroopsSent(1, $factory);
+		$troups_on  = 0;
 		if(!empty($this->TData['FACTORY'][$typeEntity][$factory])) {
 			$def_cyborgs        = $this->TData['FACTORY'][$typeEntity][$factory][2];
+			$def_cyborgs        += $this->calcTroopsSent(-1, $factory);;
 			$def_prod           = $this->TData['FACTORY'][$typeEntity][$factory][3];
 			$def_length         = $this->TMap[$source][$factory];
 			$priority_test      = 0;
